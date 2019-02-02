@@ -1,7 +1,5 @@
 import Foundation
-public protocol EmptyInitializable {
-    init()
-}
+
 public class JsonDataStorage {
     let fileManager = FileManager.default
     let homeDirectory: URL
@@ -49,12 +47,6 @@ public class JsonDataStorage {
         let url = pathForIdentifier(identifier)
         let data = (try? Data(contentsOf: url)) ?? Data(capacity: 0)
         let a = try? decoder.decode(type, from: data)
-        return a
-    }
-    public func get<T>(item identifier: String, as type: T.Type) -> T where T: Codable, T: EmptyInitializable{
-        let url = pathForIdentifier(identifier)
-        let data = (try? Data(contentsOf: url)) ?? Data(capacity: 0)
-        let a = (try? decoder.decode(type, from: data)) ?? type.init()
         return a
     }
     public func save<T>(data: T, to identifier: String) where T: Codable {
